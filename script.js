@@ -11,7 +11,7 @@ var p = document.createElement("p");
 // create our timer function
 
 var timerEl = document.querySelector("#timer");
-var secondsLeft = 6000;
+var secondsLeft = 60;
 
 function prepareQuiz() {
 var prepcountdown = setInterval(function() {
@@ -20,9 +20,39 @@ var prepcountdown = setInterval(function() {
 
     if(secondsLeft === 0) {
         clearInterval(prepcountdown);
-        
-        }
+         
+        var del1 = document.getElementById("b1");
+                del1.parentNode.removeChild(del1);
+            var del2 = document.getElementById("b2");
+                del2.parentNode.removeChild(del2);
+            var del3 = document.getElementById("b3");
+                del3.parentNode.removeChild(del3);
+            var del4 = document.getElementById("b4");
+                del4.parentNode.removeChild(del4);
+            var div  = document.getElementById("button");
+                div.setAttribute("class","form-group form-check");
+                div.removeAttribute("id");
+                div.removeAttribute("role");
+                div.textContent = "";
+            var input = document.createElement("input");
+                input.setAttribute("class","form-control");
+                input.setAttribute("id","initials");
+                div.append(input);
+            var submit = document.createElement("button");
+                submit.setAttribute("type","submit");
+                submit.setAttribute("class","btn btn-primary m-3");
+                submit.setAttribute("id","submitbutton");
+                submit.textContent = "Submit";
+                div.append(submit);
+
+                
+            title.textContent = results.title;
+            question.textContent = results.question;
+
+        };
     }, 1000);
+
+ 
 }
 
 prepareQuiz();
@@ -50,6 +80,7 @@ var ele = document.getElementById("button");
 ele.addEventListener("click", qs);
 
 var counter = 0;
+var score = 0
 document.getElementById("buttons").onclick = function increment() {
         
     counter++;
@@ -138,7 +169,19 @@ question5.correct = question5.answer4;
 
 // Answers
 
+function checkAnswer(event) {
+    console.log("click");
+    var userSelection = event.target.textContent
 
+    if
+        (userSelection === question1.correct || question2.correct || question3.correct || question4.correct || question5.correct) {
+            score++;
+            console.log(score);
+        }
+    else {
+        secondsLeft -= 5;
+    };
+}
     
 // Results
 
@@ -178,8 +221,11 @@ function qs() {
             b3.setAttribute('class', 'btn btn-outline-primary');
             b4.setAttribute('class', 'btn btn-outline-primary');  
             
-                
-            
+            b1.addEventListener("click",checkAnswer());
+            b2.addEventListener("click",checkAnswer());
+            b3.addEventListener("click",checkAnswer());
+            b4.addEventListener("click",checkAnswer());
+    
 
     }    
     else {
@@ -228,7 +274,6 @@ function q2() {
     answer4.textContent = question2.answer4;
 
 
-
 }
 
 function q3() {
@@ -239,6 +284,7 @@ function q3() {
     answer2.textContent = question3.answer2;
     answer3.textContent = question3.answer3;
     answer4.textContent = question3.answer4;
+
 
 }
 
@@ -251,6 +297,7 @@ function q4() {
     answer3.textContent = question4.answer3;
     answer4.textContent = question4.answer4;
 
+
 }
 
 function q5() {
@@ -262,4 +309,6 @@ function q5() {
     answer3.textContent = question5.answer3;
     answer4.textContent = question5.answer4;
 
+
 }
+
